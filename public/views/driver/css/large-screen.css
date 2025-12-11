@@ -1,0 +1,41 @@
+/* Large Tablets & Small Desktops (1200px and below) */
+@media screen and (max-width: 1200px) {
+  .highlights-section {
+    padding: 40px 40px;
+  }
+
+  .feature-image img {
+    width: 160px;
+    height: 160px;
+  }
+
+  .feature-card h3 {
+    font-size: 1.6em;
+  }
+}
+
+/* Tablets (1024px and below) */
+@media screen and (max-width: 1024px) {
+  .features-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5em;
+  }
+
+  .highlights-section {
+    padding: 30px 30px;
+  }
+
+  .section-title {
+    font-size: 2em;
+    margin-bottom: 2.5em;
+  }
+
+  .feature-image img {
+    width: 150px;
+    height: 150px;
+  }
+
+  .feature-card {
+    padding: 2em 1.5em;
+  }
+}

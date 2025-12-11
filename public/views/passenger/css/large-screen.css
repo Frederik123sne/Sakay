@@ -1,0 +1,119 @@
+/*-------------------- RESPONSIVE DESIGN --------------------*/
+
+/* ========== LARGE DESKTOPS (1400px and below) ========== */
+@media screen and (max-width: 1400px) {
+  .sidebar {
+    width: 14vw;
+  }
+
+  .app-logo {
+    width: 11vw;
+  }
+
+  .main-content {
+    margin-left: 14vw;
+  }
+
+  .top-nav {
+    width: calc(100% - 14vw);
+    margin-left: 14vw;
+  }
+
+  .highlights-section {
+    padding: 40px 40px;
+  }
+
+  .feature-image img {
+    width: 160px;
+    height: 160px;
+  }
+
+  .profile-banner {
+    width: calc(100% - 14vw);
+    margin-left: 14vw;
+  }
+}
+
+/* ========== STANDARD DESKTOPS (1200px and below) ========== */
+@media screen and (max-width: 1200px) {
+  .sidebar {
+    width: 200px;
+  }
+
+  .app-logo {
+    width: 150px;
+  }
+
+  .main-content {
+    margin-left: 200px;
+  }
+
+  .top-nav {
+    width: calc(100% - 200px);
+    margin-left: 200px;
+  }
+
+  /* Cards */
+  .card {
+    min-width: 280px;
+    padding: 30px 25px;
+  }
+
+  .number {
+    font-size: 1.8rem;
+  }
+
+  /* Active Ride Card */
+  .active-ride-card {
+    width: 500px;
+    height: 300px;
+  }
+
+  .firstinfo img {
+    width: 100px;
+    height: 100px;
+  }
+
+  .vehicle-box {
+    width: 180px;
+    margin-left: 4vw;
+  }
+
+  .rating {
+    margin-left: 6vw;
+  }
+
+  .action-buttons {
+    margin-left: 4vw;
+  }
+
+  /* Map */
+  .map {
+    width: 700px;
+    height: 330px;
+  }
+
+  /* Highlights */
+  .feature-card h3 {
+    font-size: 1.6em;
+  }
+
+  /* Profile */
+  .profile-banner {
+    width: calc(100% - 200px);
+    margin-left: 200px;
+  }
+
+  .profile-wrapper {
+    margin-left: calc(200px + 40px);
+  }
+
+  .profile-announcement {
+    margin-left: calc(200px + 40px);
+  }
+
+  /* Contact */
+  .contact-wrapper {
+    margin-left: 200px;
+  }
+}

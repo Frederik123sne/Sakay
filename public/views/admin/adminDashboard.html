@@ -1,0 +1,157 @@
+<?php
+require_once '../../../src/helpers/Session.php';
+require_once __DIR__ . '../../../../src/controllers/admin/VehicleController.php';
+$controller = new VehicleController();
+$pending = $controller->getPendingVehicles();
+// Session::start();
+
+// if (!isset($_SESSION['userID']) || $_SESSION['role'] !== 'admin') {
+//     header('Location: ../../auth.php');
+//     exit;
+// }
+?>
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="../admin/css/admin.css">
+    <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="../assets/SAKAY BRAVO LOGO_DARK YELLOW.png" class="app-logo" alt="Logo">
+        </div>
+
+        <a class="active" href="adminDashboard.php">Admin Dashboard</a>
+        <a href="users.php">User Management</a>
+        <a href="vehicle_registration.php">Vehicle Registration</a>
+        <a href="active_rides.php">Active Rides</a>
+        <a href="transactions.php">Transactions</a>
+        <a href="reports.php">Reports and Complaints</a>
+
+        <div class="settings">
+            <a href="system_settings.php" class="settings">Settings</a>
+        </div>
+    </div>
+
+
+    <header class="top-nav">
+        <div class="nav-left">
+            <h1 class="nav-title">Dashboard Overview</h1>
+            <h2 class="sub-title">Monitor and manage activities</h2>
+        </div>
+
+        <div class="nav-right">
+            <div class="icon notification">
+                <img src="../assets/Notification Icon.png">
+            </div>
+
+            <div class="profile">
+                <img src="../assets/Profile Icon.png"> <!-- For testing only -->
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <div class="tabs-container">
+            <div class="row">
+                <div class="column">
+                    <div class="card">
+                        <h3 class="card-header">Total Users</h3>
+                        <p class="number">150</p>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <h3 class="card-header">Active Rides</h3>
+                        <p class="number">125</p>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <h3 class="card-header">Pending Approvals</h3>
+                        <p class="number">15</p>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <h3 class="card-header">Open Reports</h3>
+                        <p class="number">5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="stat-container">
+            <div class="chart-wrapper-admin">
+                <div class="stat-grid">
+                    <div class="panel-admin">
+                        <div class="panel-header">
+                            <h3 class="title">New Users (
+                                <?php echo date('Y'); ?>)
+                            </h3>
+                        </div>
+                        <div class="panel-body">
+                            <div class="y-axis" id="y-axis"></div>
+                            <div class="chart">
+                                <div class="legend" id="legend">
+                                    <div class="legend-item">
+                                        <span></span>
+                                        Total Revenue
+                                    </div>
+                                </div>
+                                <div class="chart-container">
+                                    <div class="grid-lines" id="grid-lines"></div>
+                                    <svg class="data-chart" id="line-svg"></svg>
+                                    <div class="data-points" id="data-points"></div>
+                                </div>
+                                <div class="month-indicators" id="month-indicators"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="chart-wrapper-admin">
+                <div class="stat-grid">
+                    <div class="panel-admin-chart">
+                        <div class="panel-header">
+                            <h3 class="title">Popular way of Payment (
+                                <?php echo date('Y'); ?>)
+                            </h3>
+                        </div>
+                        <div class="panel-body-admin">
+                            <div class="pie-chart">
+                                <div class="pie-circle"></div>
+                                <ul class="pie-legend">
+                                    <li><span class="color-1"></span> Humans (718)</li>
+                                    <li><span class="color-2"></span> Dogs (531)</li>
+                                    <li><span class="color-3"></span> Cats (868)</li>
+                                    <li><span class="color-4"></span> Slugs (344)</li>
+                                    <li><span class="color-5"></span> Aliens (1145)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+    <script>
+
+    </script>
+    <script src="./js/admin.js"></script>
+</body>
+
+</html>

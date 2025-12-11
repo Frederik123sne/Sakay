@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Active Rides</title>
+    <link rel="stylesheet" href="../admin/css/admin.css">
+    <link rel="icon" type="image/x-icon" href="../assets/Logo.png">
+</head>
+
+<body>
+
+    <div class="sidebar">
+        <div class="logo-container">
+            <img src="../assets/SAKAY BRAVO LOGO_DARK YELLOW.png" class="app-logo" alt="Logo">
+        </div>
+
+        <a href="adminDashboard.php">Dashboard</a>
+        <a href="users.php">User Management</a>
+        <a href="vehicle_registration.php">Vehicle Registration</a>
+        <a class="active" href="active_rides.php">Active Rides</a>
+        <a href="transactions.php">Transactions</a>
+        <a href="reports.php">Reports and Complaints</a>
+
+        <div class="settings">
+            <a href="system_settings.php" class="settings">Settings</a>
+        </div>
+    </div>
+
+    <header class="top-nav">
+        <div class="nav-left">
+            <h1 class="nav-title">Active Rides</h1>
+            <h2 class="sub-title">View and manage active rides</h2>
+        </div>
+
+        <div class="nav-center">
+            <input type="text" placeholder="Search..." class="search-bar">
+        </div>
+
+        <div class="nav-right">
+            <div class="icon notification">
+                <img src="../assets/Notification Icon.png">
+            </div>
+
+            <div class="profile">
+                <img src="../assets/Profile Icon.png">
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <!-- Summary Cards -->
+        <div class="tabs-container">
+            <div class="row">
+                <div class="column">
+                    <div class="card">
+                        <h3 class="card-header">Ongoing</h3>
+                        <p class="number"><?php echo $stats['ongoing']; ?></p>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <h3 class="card-header">En Route</h3>
+                        <p class="number"><?php echo $stats['en_route']; ?></p>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <h3 class="card-header">Accepted</h3>
+                        <p class="number"><?php echo $stats['accepted']; ?></p>
+                    </div>
+                </div>
+
+                <div class="column">
+                    <div class="card">
+                        <h3 class="card-header">Completed</h3>
+                        <p class="number"><?php echo $stats['completed']; ?></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <div class="filter-left">
+                <form method="GET" action="active_rides.php" id="filterForm">
+                    <input type="text" name="search" class="filter-search-bar" 
+                           placeholder="Search by ride ID, driver, etc..." 
+                           value="<?php echo htmlspecialchars($_GET['search'] ?? ''); ?>" />
+                    <a href="active_rides.php" class="button refresh-btn">Refresh</a>
+                </form>
+            </div>
+
+            <div class="filter-right">
+                <form method="GET" action="active_rides.php" id="statusForm">
+                    <select name="status" class="filter-by-status" onchange="this.form.submit()">
+                        <option value="">All Status</option>
+                        <option value="ongoing" <?php echo ($_GET['status'] ?? '') === 'ongoing' ? 'selected' : ''; ?>>Ongoing</option>
+                        <option value="en_route" <?php echo ($_GET['status'] ?? '') === 'en_route' ? 'selected' : ''; ?>>En Route</option>
+                        <option value="accepted" <?php echo ($_GET['status'] ?? '') === 'accepted' ? 'selected' : ''; ?>>Accepted</option>
+                        <option value="completed" <?php echo ($_GET['status'] ?? '') === 'completed' ? 'selected' : ''; ?>>Completed</option>
+                    </select>
+                </form>
+
+                <form method="POST" action="../../../src/controllers/admin/RideController.php?action=export">
+                    <button type="submit" class="button export-button">Export CSV</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="rides-information">
+            <table class ="ridesTable" id="ridesTable">
+                <thead>
+                    <tr>
+                        <th>Ride ID</th>
+                        <th>Driver</th>
+                        <th>Pickup</th>
+                        <th>Departure time</th>
+                        <th>Destination</th>
+                        <th>Available seats</th>
+                        <th>Total seats</th>
+                        <th>Status</th>
+                        <th>ETA</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (empty($rides)): ?>
+                        <tr>
+                            <td colspan="9" style="text-align:center; padding:30px; color:#888;">
+                                No active rides found
+                            </td>
+                        </tr>
+                    <?php else: ?>
+                        <?php foreach ($rides as $ride): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($ride['rideID']); ?></td>
+                                <td><?php echo htmlspecialchars($ride['driver']); ?></td>
+                                <td><?php echo htmlspecialchars($ride['origin']); ?></td>
+                                <td><?php echo date('h:i A', strtotime($ride['departure_time'])); ?></td>
+                                <td><?php echo htmlspecialchars($ride['destination']); ?></td>
+                                <td><?php echo htmlspecialchars($ride['seats_available']); ?></td>
+                                <td><?php echo htmlspecialchars($ride['total_seats']); ?></td>
+                                <td>
+                                    <span class="status-badge status-<?php echo strtolower(str_replace('_', '-', $ride['status'])); ?>">
+                                        <?php echo ucwords(str_replace('_', ' ', $ride['status'])); ?>
+                                    </span>
+                                </td>
+                                <td><?php echo $ride['estimated_arrival'] ? date('h:i A', strtotime($ride['estimated_arrival'])) : '-'; ?></td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php endif; ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination-container">
+            <div class="pagination-info">
+                Showing <?php echo count($rides); ?> rides
+            </div>
+            <div class="pagination-buttons"></div>
+        </div>
+    </div>
+
+    <script src="js/active_rides.js"></script>
+</body>
+
+</html>
